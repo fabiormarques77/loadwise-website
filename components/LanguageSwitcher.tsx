@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
-type Lang = "en" | "pt" | "es";
+export type Lang = "en" | "pt" | "es";
 type Dictionary = Record<string, string>;
 
 const pt: Dictionary = {
@@ -40,17 +40,165 @@ Object.assign(es, {
   ,"A future where company size no longer determines access to world-class operational intelligence.":"Un futuro en el que el tamaño de la empresa ya no determine el acceso a inteligencia operativa de clase mundial.","A list of opportunities is not a recommendation. A dashboard is not coordination. A notification is not a decision. Software should understand the realities around the work—vehicle, equipment, time, location, capacity, market and margin—and help the operation act.":"Una lista de oportunidades no es una recomendación. Un panel no es coordinación. Una notificación no es una decisión. El software debe comprender la realidad del trabajo —vehículo, equipo, tiempo, ubicación, capacidad, mercado y margen— y ayudar a la operación a actuar.","A long-term integration approach built around the tools freight operators already depend on.":"Un enfoque de integración a largo plazo construido alrededor de las herramientas de las que ya dependen los operadores.","A scalable foundation prepared for growing fleets, data volumes and workflows.":"Una base escalable preparada para el crecimiento de flotas, volúmenes de datos y flujos de trabajo.","AI decision engine across the operation":"Motor de decisiones con IA en toda la operación","An AI operating copilot for independent freight":"Un copiloto operativo de IA para el transporte independiente","As LoadWise expands, security, permissioned access and practical integrations will remain part of the platform foundation—not afterthoughts.":"A medida que LoadWise evoluciona, la seguridad, el acceso por permisos y las integraciones prácticas seguirán siendo parte de la base de la plataforma, no añadidos posteriores.","Automated broker communication intelligence":"Inteligencia automatizada para la comunicación con corredores","Autonomous routine workflows":"Flujos rutinarios autónomos","Cargo van, box truck, hot shot…":"Cargo van, box truck, hot shot…","Clear route, timing and equipment details":"Detalles claros de ruta, horario y equipo","Companies that learn from every decision. Teams that move from fragmented work to shared context. Businesses that gain the intelligence, automation and control once available only at enterprise scale.":"Empresas que aprenden de cada decisión. Equipos que pasan del trabajo fragmentado al contexto compartido. Negocios que obtienen la inteligencia, automatización y control antes disponibles solo a escala empresarial.","Connected operational and business analytics":"Análisis operativos y de negocio conectados","Continuous business and margin intelligence":"Inteligencia continua de negocio y margen","DEADHEAD":"DESPLAZAMIENTO VACÍO","Decision":"Decisión","Dispatcher intelligence command center":"Centro de inteligencia de despacho","Driver availability and location":"Disponibilidad y ubicación del conductor","Driver bid submission":"Envío de oferta del conductor","Fleet and capacity intelligence":"Inteligencia de flota y capacidad","Give independent freight companies the intelligence, automation and operational control to build stronger businesses.":"Dar a las empresas de transporte independiente la inteligencia, automatización y control operativo necesarios para construir negocios más sólidos.","Information is collected for explicit operational purposes and handled with controlled access.":"La información se recopila para fines operativos explícitos y se gestiona con acceso controlado.","It should not become another product to manage. It should observe, organize, explain and automate. It should help good operators make better decisions faster—and give growing fleets systems that scale beyond individual effort.":"No debe convertirse en otro producto que gestionar. Debe observar, organizar, explicar y automatizar. Debe ayudar a los buenos operadores a tomar mejores decisiones con mayor rapidez y ofrecer a las flotas en crecimiento sistemas que vayan más allá del esfuerzo individual.","It was the daily reality of dispatching vehicles, reviewing opportunities, communicating with brokers, coordinating people, managing paperwork and trying to protect a business from fragmented information.":"Era la realidad diaria de despachar vehículos, analizar oportunidades, comunicarse con corredores, coordinar personas, gestionar documentos y proteger el negocio frente a información fragmentada.","Join early access →":"Unirse al acceso anticipado →","LoadWise began by solving those problems inside a real operation. That experience now guides a much larger ambition: create the operating system for independent freight.":"LoadWise comenzó resolviendo esos problemas dentro de una operación real. Esa experiencia guía ahora una ambición mucho mayor: crear el sistema operativo para el transporte independiente.","LoadWise was not imagined from a distance. It began with lived problems: dispatching, negotiating, coordinating vehicles, processing documents and trying to protect profitability while freight keeps moving.":"LoadWise no fue imaginada desde la distancia. Nació de problemas reales: despachar, negociar, coordinar vehículos, procesar documentos y proteger la rentabilidad mientras el transporte sigue en movimiento.","MARGIN SIGNAL":"SEÑAL DE MARGEN","One vehicle or a growing fleet. Cargo van, box truck, hot shot, dry van or flatbed. The operating reality changes, but the need for clarity, coordination and intelligent systems does not.":"Un vehículo o una flota en crecimiento. Cargo van, box truck, hot shot, dry van o flatbed. La realidad operativa cambia, pero la necesidad de claridad, coordinación y sistemas inteligentes permanece.","Operational notifications and updates":"Notificaciones y actualizaciones operativas","OPPORTUNITY":"OPORTUNIDAD","Predictive market intelligence":"Inteligencia predictiva de mercado","Selected load opportunities":"Oportunidades de carga seleccionadas","Technology should make the next decision easier to understand.":"La tecnología debe hacer que la próxima decisión sea más fácil de comprender.","The best technology in freight has historically been reserved for the largest companies. Smaller operators have been asked to compensate with more effort: more searching, more calls, more tabs, more spreadsheets and more decisions made without context.":"Históricamente, la mejor tecnología de transporte ha estado reservada para las empresas más grandes. Los operadores pequeños han tenido que compensarlo con más esfuerzo: más búsquedas, llamadas, pestañas, hojas de cálculo y decisiones sin contexto.","VEHICLE 042":"VEHÍCULO 042","We are creating an ecosystem around a more intelligent future for independent freight.":"Estamos creando un ecosistema para un futuro más inteligente del transporte independiente.","We build for owner-operators and small fleets—not as an enterprise afterthought.":"Construimos para propietarios-operadores y pequeñas flotas, no como una adaptación posterior de un producto empresarial.","We distinguish clearly between what exists, what is being built and where we are going.":"Distinguimos claramente lo que existe, lo que se está construyendo y hacia dónde vamos.","We measure value in recovered time, better decisions and stronger operations.":"Medimos el valor en tiempo recuperado, mejores decisiones y operaciones más sólidas.","We reject the idea that this is simply how independent freight works.":"Rechazamos la idea de que el transporte independiente simplemente tenga que funcionar así.","We welcome conversations with brokers, technology providers, industry partners, investors and people who share our long-term vision.":"Recibimos conversaciones con corredores, proveedores de tecnología, socios del sector, inversores y personas que comparten nuestra visión a largo plazo.","Workflow automation and platform integrations":"Automatización de flujos e integraciones de la plataforma","Your name":"Tu nombre"
 });
 
-const dictionaries: Record<Lang, Dictionary> = { en: {}, pt, es };
+Object.assign(pt, {
+  "Language": "Idioma",
+  "LoadWise home": "Página inicial da LoadWise",
+  "Open navigation": "Abrir navegação",
+  "Close navigation": "Fechar navegação",
+  "Main navigation": "Navegação principal",
+  "TALK TO OUR TEAM": "FALE COM NOSSA EQUIPE",
+  "Let’s talk about": "Vamos conversar sobre",
+  "your operation.": "sua operação.",
+  "Tell Liberty Haul & Logistics a little about your operation. It takes less than a minute, and our team will call you to discuss the next step.": "Conte à Liberty Haul & Logistics um pouco sobre sua operação. Leva menos de um minuto, e nossa equipe ligará para você para conversar sobre o próximo passo.",
+  "FOR DRIVERS": "PARA MOTORISTAS",
+  "Request a call": "Solicite uma ligação",
+  "Owner-operators and small fleets are welcome.": "Proprietários-operadores e pequenas frotas são bem-vindos.",
+  "Tell us about your operation →": "Conte-nos sobre sua operação →",
+  "REQUEST A CALL": "SOLICITE UMA LIGAÇÃO",
+  "Request a Call": "Solicite uma ligação",
+  "One minute now.": "Um minuto agora.",
+  "A real conversation next.": "Uma conversa de verdade depois.",
+  "This is only an initial request—not onboarding. If your operation is a fit, our team will contact you and explain any documents needed later.": "Esta é apenas uma solicitação inicial — não é integração. Se sua operação for compatível, nossa equipe entrará em contato e explicará quais documentos serão necessários depois.",
+  "No documents needed": "Nenhum documento necessário",
+  "No account creation": "Nenhuma criação de conta",
+  "No onboarding commitment": "Nenhum compromisso de integração",
+  "Reviewed directly by our dispatch team": "Analisado diretamente por nossa equipe de despacho",
+  "We received your request.": "Recebemos sua solicitação.",
+  "A member of our team will review your information and contact you.": "Um membro da nossa equipe analisará suas informações e entrará em contato.",
+  "All fields required": "Todos os campos são obrigatórios",
+  "Full Name": "Nome completo",
+  "Your full name": "Seu nome completo",
+  "Mobile Phone": "Telefone celular",
+  "Operation Type": "Tipo de operação",
+  "Number of Vehicles": "Número de veículos",
+  "Equipment Type": "Tipo de equipamento",
+  "How did you hear about Liberty?": "Como você conheceu a Liberty?",
+  "Referral": "Indicação",
+  "Other": "Outro",
+  "Sending...": "Enviando...",
+  "Your information is used only to review and respond to this request.": "Suas informações são usadas somente para analisar e responder a esta solicitação.",
+  "We couldn't send your request right now.": "Não foi possível enviar sua solicitação agora.",
+  "Please complete this field.": "Preencha este campo.",
+  "Please enter a valid email address.": "Insira um endereço de e-mail válido.",
+  "Please match the requested format.": "Use o formato solicitado.",
+  "Request a Call form": "Formulário de solicitação de ligação",
+  "Request submitted successfully": "Solicitação enviada com sucesso",
+  "Send request": "Enviar solicitação",
+  "Owner-operators and small fleets can tell us about their operation in less than a minute.": "Proprietários-operadores e pequenas frotas podem nos contar sobre sua operação em menos de um minuto.",
+  "Talk to our team →": "Fale com nossa equipe →",
+  "Tell us about your": "Conte-nos sobre sua",
+  "Request a conversation in less than a minute. No documents or onboarding are required.": "Solicite uma conversa em menos de um minuto. Nenhum documento ou integração é necessário."
+});
+
+Object.assign(es, {
+  "Language": "Idioma",
+  "LoadWise home": "Página de inicio de LoadWise",
+  "Open navigation": "Abrir navegación",
+  "Close navigation": "Cerrar navegación",
+  "Main navigation": "Navegación principal",
+  "TALK TO OUR TEAM": "HABLA CON NUESTRO EQUIPO",
+  "Let’s talk about": "Hablemos de",
+  "your operation.": "tu operación.",
+  "Tell Liberty Haul & Logistics a little about your operation. It takes less than a minute, and our team will call you to discuss the next step.": "Cuéntale a Liberty Haul & Logistics un poco sobre tu operación. Toma menos de un minuto, y nuestro equipo te llamará para conversar sobre el siguiente paso.",
+  "FOR DRIVERS": "PARA CONDUCTORES",
+  "Request a call": "Solicita una llamada",
+  "Owner-operators and small fleets are welcome.": "Los propietarios-operadores y las pequeñas flotas son bienvenidos.",
+  "Tell us about your operation →": "Cuéntanos sobre tu operación →",
+  "REQUEST A CALL": "SOLICITA UNA LLAMADA",
+  "Request a Call": "Solicita una llamada",
+  "One minute now.": "Un minuto ahora.",
+  "A real conversation next.": "Una conversación real después.",
+  "This is only an initial request—not onboarding. If your operation is a fit, our team will contact you and explain any documents needed later.": "Esta es solo una solicitud inicial, no es incorporación. Si tu operación es compatible, nuestro equipo se pondrá en contacto contigo y te explicará los documentos necesarios más adelante.",
+  "No documents needed": "No se necesitan documentos",
+  "No account creation": "No es necesario crear una cuenta",
+  "No onboarding commitment": "Sin compromiso de incorporación",
+  "Reviewed directly by our dispatch team": "Revisado directamente por nuestro equipo de despacho",
+  "We received your request.": "Recibimos tu solicitud.",
+  "A member of our team will review your information and contact you.": "Un miembro de nuestro equipo revisará tu información y se pondrá en contacto contigo.",
+  "All fields required": "Todos los campos son obligatorios",
+  "Full Name": "Nombre completo",
+  "Your full name": "Tu nombre completo",
+  "Mobile Phone": "Teléfono móvil",
+  "Operation Type": "Tipo de operación",
+  "Number of Vehicles": "Número de vehículos",
+  "Equipment Type": "Tipo de equipo",
+  "How did you hear about Liberty?": "¿Cómo conociste a Liberty?",
+  "Referral": "Recomendación",
+  "Other": "Otro",
+  "Sending...": "Enviando...",
+  "Your information is used only to review and respond to this request.": "Tu información se usa únicamente para revisar y responder a esta solicitud.",
+  "We couldn't send your request right now.": "No pudimos enviar tu solicitud en este momento.",
+  "Please complete this field.": "Completa este campo.",
+  "Please enter a valid email address.": "Introduce una dirección de correo electrónico válida.",
+  "Please match the requested format.": "Usa el formato solicitado.",
+  "Request a Call form": "Formulario de solicitud de llamada",
+  "Request submitted successfully": "Solicitud enviada correctamente",
+  "Send request": "Enviar solicitud",
+  "Owner-operators and small fleets can tell us about their operation in less than a minute.": "Los propietarios-operadores y las pequeñas flotas pueden contarnos sobre su operación en menos de un minuto.",
+  "Talk to our team →": "Habla con nuestro equipo →",
+  "Tell us about your": "Cuéntanos sobre tu",
+  "Request a conversation in less than a minute. No documents or onboarding are required.": "Solicita una conversación en menos de un minuto. No se requieren documentos ni incorporación."
+});
+
+const englishKeys = new Set([...Object.keys(pt), ...Object.keys(es)]);
+const en = Object.fromEntries([...englishKeys].map((key) => [key, key]));
+export const dictionaries: Record<Lang, Dictionary> = { en, pt, es };
 const originals = new WeakMap<Node, string>();
+const listeners = new Set<() => void>();
+let currentLang: Lang = "en";
+let initialized = false;
+
+function validLang(value: string | null): value is Lang {
+  return value === "en" || value === "pt" || value === "es";
+}
+
+function readBrowserLang(): Lang {
+  const query = new URLSearchParams(location.search).get("lang");
+  const saved = localStorage.getItem("loadwise-lang");
+  return validLang(query) ? query : validLang(saved) ? saved : "en";
+}
+
+function initializeLanguage() {
+  if (initialized || typeof window === "undefined") return;
+  initialized = true;
+  currentLang = readBrowserLang();
+  window.addEventListener("popstate", () => setLanguage(readBrowserLang(), false));
+  window.addEventListener("storage", (event) => {
+    if (event.key === "loadwise-lang" && validLang(event.newValue)) setLanguage(event.newValue, false);
+  });
+}
+
+export function setLanguage(next: Lang, updateUrl = true) {
+  currentLang = next;
+  if (typeof window !== "undefined") {
+    localStorage.setItem("loadwise-lang", next);
+    if (updateUrl) {
+      const url = new URL(location.href);
+      url.searchParams.set("lang", next);
+      history.replaceState({}, "", url);
+    }
+  }
+  listeners.forEach((listener) => listener());
+}
+
+function subscribe(listener: () => void) {
+  initializeLanguage();
+  listeners.add(listener);
+  queueMicrotask(listener);
+  return () => listeners.delete(listener);
+}
+
+export function useLanguage() {
+  const lang = useSyncExternalStore<Lang>(subscribe, () => currentLang, () => "en");
+  return {
+    lang,
+    setLang: setLanguage,
+    t: (key: string) => dictionaries[lang][key] ?? key
+  };
+}
 
 export function LanguageSwitcher() {
-  const [lang, setLang] = useState<Lang>("en");
-  useEffect(() => {
-    const query = new URLSearchParams(location.search).get("lang") as Lang | null;
-    const saved = localStorage.getItem("loadwise-lang") as Lang | null;
-    const initial = query && ["en","pt","es"].includes(query) ? query : saved && ["en","pt","es"].includes(saved) ? saved : "en";
-    queueMicrotask(() => setLang(initial));
-  }, []);
+  const { lang, setLang, t } = useLanguage();
   useEffect(() => {
     const apply = () => {
       document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
@@ -70,16 +218,9 @@ export function LanguageSwitcher() {
       });
     };
     apply();
-    localStorage.setItem("loadwise-lang", lang);
     const observer = new MutationObserver(apply);
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, [lang]);
-  const choose = (next: Lang) => {
-    setLang(next);
-    const url = new URL(location.href);
-    url.searchParams.set("lang", next);
-    history.replaceState({}, "", url);
-  };
-  return <div className="lang-switch" aria-label="Language"><button className={lang === "en" ? "active" : ""} onClick={() => choose("en")}>EN</button><button className={lang === "pt" ? "active" : ""} onClick={() => choose("pt")}>PT</button><button className={lang === "es" ? "active" : ""} onClick={() => choose("es")}>ES</button></div>;
+  return <div className="lang-switch" aria-label={t("Language")}><button type="button" aria-pressed={lang === "en"} className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button><button type="button" aria-pressed={lang === "pt"} className={lang === "pt" ? "active" : ""} onClick={() => setLang("pt")}>PT</button><button type="button" aria-pressed={lang === "es"} className={lang === "es" ? "active" : ""} onClick={() => setLang("es")}>ES</button></div>;
 }
