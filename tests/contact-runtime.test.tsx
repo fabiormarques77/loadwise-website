@@ -15,7 +15,7 @@ const formKeys = [
   "Operation Type",
   "Number of Vehicles",
   "Equipment Type",
-  "How did you hear about Liberty?",
+  "How did you hear about LoadWise?",
   "Select",
   "Owner-operator",
   "Small fleet",
@@ -53,7 +53,7 @@ function expectCompleteLocale(lang: Lang) {
 
   expect(screen.getByPlaceholderText(dictionary["Your full name"])).toBeInTheDocument();
   expect(screen.getByPlaceholderText(dictionary["Cargo van, box truck, hot shot…"])).toBeInTheDocument();
-  for (const key of ["Full Name", "Mobile Phone", "ZIP Code", "Email", "Operation Type", "Number of Vehicles", "Equipment Type", "How did you hear about Liberty?"]) {
+  for (const key of ["Full Name", "Mobile Phone", "ZIP Code", "Email", "Operation Type", "Number of Vehicles", "Equipment Type", "How did you hear about LoadWise?"]) {
     expect(screen.getByLabelText(dictionary[key])).toBeInTheDocument();
   }
   const operation = screen.getByLabelText(dictionary["Operation Type"]);
@@ -92,7 +92,7 @@ describe("Contact runtime locale behavior", () => {
     await selectLanguage("ES");
     expectCompleteLocale("es");
     expect(document.body.textContent).not.toContain(dictionaries.pt["All fields required"]);
-    expect(document.body.textContent).not.toContain(dictionaries.pt["How did you hear about Liberty?"]);
+    expect(document.body.textContent).not.toContain(dictionaries.pt["How did you hear about LoadWise?"]);
     expect(location.search).toBe("?lang=es");
     expect(localStorage.getItem("loadwise-lang")).toBe("es");
 
@@ -116,8 +116,10 @@ describe("Contact runtime locale behavior", () => {
 
   it("submits unchanged canonical values and field names after locale switching", async () => {
     let submitted: FormData | undefined;
+    let submittedHeaders: HeadersInit | undefined;
     vi.stubGlobal("fetch", vi.fn(async (_url, init) => {
       submitted = init?.body as FormData;
+      submittedHeaders = init?.headers;
       return new Response("{}", { status: 200 });
     }));
     render(<Contact />);
@@ -130,7 +132,7 @@ describe("Contact runtime locale behavior", () => {
     await userEvent.selectOptions(screen.getByLabelText(pt["Operation Type"]), "OWNER_OPERATOR");
     await userEvent.type(screen.getByLabelText(pt["Number of Vehicles"]), "2");
     await userEvent.type(screen.getByLabelText(pt["Equipment Type"]), "Cargo van");
-    await userEvent.selectOptions(screen.getByLabelText(pt["How did you hear about Liberty?"]), "REFERRAL");
+    await userEvent.selectOptions(screen.getByLabelText(pt["How did you hear about LoadWise?"]), "REFERRAL");
     await userEvent.click(screen.getByRole("button", { name: pt["Send request"] }));
 
     await waitFor(() => expect(submitted).toBeDefined());
@@ -142,8 +144,12 @@ describe("Contact runtime locale behavior", () => {
       operationType: "OWNER_OPERATOR",
       numberOfVehicles: "2",
       equipmentType: "Cargo van",
-      leadSource: "REFERRAL"
+      leadSource: "REFERRAL",
+      website: "",
+      locale: "pt",
+      formSource: "loadwise_website_contact"
     });
+    expect(submittedHeaders).toMatchObject({ "x-idempotency-key": expect.stringMatching(/^contact:/) });
   });
 });
 

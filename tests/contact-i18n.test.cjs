@@ -75,13 +75,13 @@ test("Contact and shared chrome only reference existing translation keys", () =>
 
 test("Contact's principal copy is distinct and complete in PT and ES", () => {
   const expected = {
-    "Request a Call": ["Solicite uma ligação", "Solicita una llamada"],
+    "Request a Call": ["Solicitar uma ligação", "Solicita una llamada"],
     "Full Name": ["Nome completo", "Nombre completo"],
-    "Mobile Phone": ["Telefone celular", "Teléfono móvil"],
+    "Mobile Phone": ["Celular", "Teléfono móvil"],
     "Operation Type": ["Tipo de operação", "Tipo de operación"],
     "Number of Vehicles": ["Número de veículos", "Número de vehículos"],
     "Equipment Type": ["Tipo de equipamento", "Tipo de equipo"],
-    "How did you hear about Liberty?": ["Como você conheceu a Liberty?", "¿Cómo conociste a Liberty?"],
+    "How did you hear about LoadWise?": ["Como você conheceu a LoadWise?", "¿Cómo conociste a LoadWise?"],
     "All fields required": ["Todos os campos são obrigatórios", "Todos los campos son obligatorios"]
   };
   for (const [key, [pt, es]] of Object.entries(expected)) {
@@ -117,7 +117,10 @@ test("translated option labels preserve canonical submitted values and payload f
   for (const field of ["fullName", "mobilePhone", "zipCode", "email", "operationType", "numberOfVehicles", "equipmentType", "leadSource"]) {
     assert.match(contactSource, new RegExp(`name=[\"']${field}[\"']`));
   }
-  assert.match(contactSource, /body:\s*new FormData\(event\.currentTarget\)/);
+  assert.match(contactSource, /const body = new FormData\(event\.currentTarget\)/);
+  assert.match(contactSource, /body\.set\("locale", lang\)/);
+  assert.match(contactSource, /body\.set\("formSource", "loadwise_website_contact"\)/);
+  assert.match(contactSource, /"x-idempotency-key": submissionKey\.current/);
   assert.match(contactSource, /fetch\("\/api\/applications"/);
 });
 
